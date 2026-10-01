@@ -1,0 +1,200 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Cafe Dashboard</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&family=Fraunces:opsz,wght@9..144,600;800&display=swap">
+<style>
+:root{--bg:#f5ede2;--card:#fffaf2;--ink:#35261d;--mut:#7a6552;--bd:#e4d5c1;--c1:#6f4e37;--c2:#c8873a;--c3:#7a8b5a;--c4:#a4553f;--c5:#d9b88f;--c6:#4a6670;--c7:#b08968;--s1:#6f4e37;--s2:#d08a2e;--s3:#5f8a4c;--neg:#b3412f;--pos:#4d7a3a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1511;--card:#2a1e18;--ink:#f4e9db;--mut:#b49d86;--bd:#43332a;--c1:#c49a73;--c2:#e6a64c;--c3:#9db17a;--c4:#d9806a;--c5:#8a7157;--c6:#7fa3ad;--c7:#d2ac86;--s1:#c49a73;--s2:#e6a64c;--s3:#8fb572;--neg:#ee8a76;--pos:#9bc47e}}
+:root[data-theme="dark"]{--bg:#1d1511;--card:#2a1e18;--ink:#f4e9db;--mut:#b49d86;--bd:#43332a;--c1:#c49a73;--c2:#e6a64c;--c3:#9db17a;--c4:#d9806a;--c5:#8a7157;--c6:#7fa3ad;--c7:#d2ac86;--s1:#c49a73;--s2:#e6a64c;--s3:#8fb572;--neg:#ee8a76;--pos:#9bc47e}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 56px)}*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 'DM Sans',system-ui,sans-serif;-webkit-text-size-adjust:100%}
+main,header{max-width:1040px;margin:0 auto;padding:0 14px}
+header{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding-top:14px}.hr{display:flex;gap:8px;flex-wrap:wrap}
+h1,h2{font-family:Fraunces,Georgia,serif}h1{font-size:1.6rem;margin:0;font-weight:800}h2{font-size:1.15rem;margin:24px 0 8px;font-weight:600}
+p,.m{color:var(--mut);margin:.3em 0 .7em;font-size:.88rem}code,pre{background:var(--bd);border-radius:6px;font-size:.85em}code{padding:1px 5px}pre{padding:10px;white-space:pre-wrap;word-break:break-word;margin:6px 0}
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:6px;overflow-x:auto;padding:10px 14px;max-width:1040px;margin:0 auto}
+button,select,input,.btn{font:inherit;font-size:16px;color:var(--ink);background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:8px 12px;min-height:40px}
+.tabs button{white-space:nowrap}button.on{background:var(--c1);color:var(--bg);border-color:var(--c1)}.btn{display:inline-flex;align-items:center;cursor:pointer;background:var(--c2);color:#2a1a0c;border-color:var(--c2);font-weight:700}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;min-width:0}
+.k{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:10px 0}@media(min-width:640px){.k{grid-template-columns:repeat(3,1fr)}}@media(min-width:900px){.k{grid-template-columns:repeat(6,1fr)}}
+.k b{display:block;font-family:Fraunces,serif;font-size:1.3rem;color:var(--c1);line-height:1.2}.k span{color:var(--mut);font-size:.78rem}
+.g,.g3{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))}
+.ch{height:250px;position:relative}.w{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.85rem}td,th{padding:6px 8px;border-bottom:1px solid var(--bd);text-align:right;white-space:nowrap}td:first-child,th:first-child{text-align:left}
+.t td{font-weight:700}.sub td{color:var(--mut)}.neg{color:var(--neg)}.pos{color:var(--pos)}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.seg button{padding:5px 12px;min-height:34px;font-size:.88rem}
+.ex{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}.ex label{font-size:.78rem;color:var(--mut);display:block}.ex input[type=number],.ex select{width:100%}.ex input[type=range]{width:100%;padding:0;min-height:28px}
+.hm{display:grid;grid-template-columns:48px repeat(7,1fr);gap:2px;font-size:.72rem;text-align:center}.hm i{font-style:normal;color:var(--mut);padding:4px 0}.hm div{padding:6px 0;border-radius:4px;min-height:28px;font-weight:600}
+.lg{height:10px;border-radius:5px;margin-top:8px;background:linear-gradient(90deg,rgb(255,23,23),rgb(139,0,0) 20%,rgb(255,140,0) 40%,rgb(255,214,10) 60%,rgb(154,205,50) 80%,rgb(0,230,64))}
+.row{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 6px;border-bottom:1px solid var(--bd);border-radius:6px}.row small{color:var(--mut)}.pt{cursor:pointer}.pt:active,.pt.on{background:color-mix(in srgb,var(--c2) 22%,transparent)}.bar{grid-column:1/3;height:5px;border-radius:3px;background:var(--c2)}
+.k2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}.k2 b{display:block;font-family:Fraunces,serif;font-size:1.05rem}.k2 span{font-size:.75rem;color:var(--mut)}
+.ins{border-left:4px solid var(--c2)}.ins b{display:block}.ins .a{color:var(--c1);font-weight:500;margin-top:4px}.chip{display:inline-block;border:1px solid var(--bd);border-radius:99px;padding:2px 10px;margin:2px;font-size:.82rem}
+#err{color:var(--neg);font-weight:700}
+</style></head><body>
+<header><div><h1>Cafe Dashboard</h1><div class="m" id="sub"></div></div><div class="hr"><select id="mo" aria-label="Month" hidden></select><label class="btn">Load CSV<input type="file" id="f" accept=".csv,text/csv" hidden></label></div></header>
+<main><p id="err"></p><div id="empty" class="c" style="margin-top:14px"><b>Load your POS export</b><p>Tap Load CSV and choose the sales transactions file (needs <code>CreatedAt</code>, <code>Total Price</code>, <code>Total Amount Payable</code>, <code>Total Cost Of Goods Sold</code>, <code>Payment Method</code>, <code>Status</code>, <code>Order Details</code>). Everything runs on your device and the last file is remembered.</p></div></main>
+<nav class="tabs" id="tabs" hidden><button data-t="db" class="on">Dashboard</button><button data-t="nm">Numbers</button><button data-t="it">Items</button><button data-t="ml">Forecast model</button></nav>
+<main id="app" hidden>
+<section id="db"><div class="k" id="kdb"></div><h2>Insights and recommended actions</h2><div class="g" id="ins"></div><h2>Top performers</h2><div class="g3" id="top"></div>
+<h2>Trends</h2><div class="c"><div class="ch"><canvas id="c-day"></canvas></div></div><div class="g" style="margin-top:10px"><div class="c"><b>Average sales per open weekday</b><div class="ch"><canvas id="c-dow"></canvas></div></div><div class="c"><b>Sales by category</b><div class="ch"><canvas id="c-cat"></canvas></div></div></div></section>
+
+<section id="nm" hidden><h2>Time series</h2><div class="c"><div class="seg" id="tsb"><button data-v="n" class="on">Net sales</button><button data-v="p">Gross profit</button><button data-v="o">Orders</button><button data-v="a">Avg ticket</button></div><div class="ch"><canvas id="c-ts"></canvas></div></div>
+<h2>Best time to sell</h2><div class="c"><div class="seg" id="hmb"><button data-h="o" class="on">Orders</button><button data-h="n">Sales</button></div><div class="hm" id="hm"></div><div class="lg"></div><div class="m" style="display:flex;justify-content:space-between"><span>Weakest</span><span>Strongest</span></div></div>
+<div class="c" style="margin-top:10px"><b>Sales by hour</b><div class="ch"><canvas id="c-hr"></canvas></div></div>
+<h2>Profit and loss</h2><p>Your POS only knows cost of goods. Add monthly costs for a real net profit (saved on this device).</p>
+<div class="c ex"><div><label>Rent</label><input type="number" inputmode="decimal" id="x-rent"></div><div><label>Labor</label><input type="number" inputmode="decimal" id="x-lab"></div><div><label>Utilities</label><input type="number" inputmode="decimal" id="x-uti"></div><div><label>Other</label><input type="number" inputmode="decimal" id="x-oth"></div><div><label>Delivery app fee %</label><input type="number" inputmode="decimal" id="x-com"></div></div>
+<div class="g" style="margin-top:10px"><div class="c w"><table id="tpl"></table></div><div class="c"><div class="ch"><canvas id="c-wf"></canvas></div></div></div>
+<h2>Cash flow</h2><div class="c"><div class="ch"><canvas id="c-cf"></canvas></div><p>Bars: money in per day by payment type. Line: cumulative operating cash after cost of goods, app fees and prorated costs. Delivery payouts usually arrive later.</p></div><div class="c w" style="margin-top:10px"><table id="tpay"></table></div>
+<h2>Categories</h2><div class="c w"><table id="tcat"></table></div><h2>Daily ledger</h2><div class="c w"><table id="tled"></table></div></section>
+
+<section id="it" hidden><p style="margin-top:14px">Pick up to 3 to compare. Choose the same item twice with different sizes to compare sizes.</p><div class="g3" id="slots"></div><div class="g3" id="ikp" style="margin-top:10px"></div>
+<div class="g" style="margin-top:10px"><div class="c"><b>Daily quantity</b><div class="ch"><canvas id="c-i1"></canvas></div></div><div class="c"><b>Quantity by hour</b><div class="ch"><canvas id="c-i2"></canvas></div></div><div class="c"><b>Quantity by weekday</b><div class="ch"><canvas id="c-i3"></canvas></div></div><div class="c"><b>Sales by size</b><div class="ch"><canvas id="c-i4"></canvas></div></div></div>
+<div class="g3" id="isz" style="margin-top:10px"></div><h2>All items</h2><div class="c"><div class="seg"><input id="q" type="search" placeholder="Search item" style="flex:1;min-width:130px"><select id="ic"></select><select id="is"><option value="q">By qty</option><option value="net">By sales</option><option value="profit">By profit</option><option value="name">A to Z</option></select></div><p>Tap an item to load it into slot A.</p><div id="list"></div></div></section>
+
+<section id="ml" hidden><p style="margin-top:14px">Ridge linear regression on daily totals (all months). Train it, then drag the parameters yourself and watch the error change. Parameters are shown at full precision.</p>
+<div class="c"><div class="ex"><div><label>Predict</label><select id="mt"><option value="n">Net sales</option><option value="o">Orders</option><option value="p">Gross profit</option></select></div><div><label>Ridge penalty (lambda)</label><input type="number" id="ml-l" value="1" min="0" step="0.5"></div><div><label>Test split (last days)</label><select id="ms"><option>0</option><option selected>20</option><option>30</option></select></div></div>
+<div class="seg" id="mf" style="margin-top:8px"></div><div class="seg"><button id="tr" class="on">Train</button><button id="rst">Reset to trained</button></div></div>
+<div class="c" style="margin-top:10px"><b>Model function</b><pre id="fn"></pre></div><h2>Parameters</h2><div class="c"><div class="ex" id="mlp"></div></div>
+<div class="k" id="mk"></div><div class="c"><div class="ch"><canvas id="c-ml"></canvas></div></div><h2>Next 7 days</h2><div class="c w"><table id="mfc"></table></div></section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+//#pure-start
+const sum=a=>a.reduce((x,y)=>x+y,0);
+function csv(t){const R=[];let r=[],f="",q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++}else q=false}else f+=c}else if(c=='"')q=true;else if(c==','){r.push(f);f=""}else if(c=='\n'||c=='\r'){if(c=='\r'&&t[i+1]=='\n')i++;r.push(f);f="";R.push(r);r=[]}else f+=c}
+if(f||r.length){r.push(f);R.push(r)}const H=R.shift().map(h=>h.replace(/^\uFEFF/,"").trim());return R.filter(r=>r.length>1).map(r=>Object.fromEntries(H.map((h,i)=>[h,r[i]])))}
+const grp=p=>/grab|panda/i.test(p)?"Delivery apps":/gcash|maya|bank|sound/i.test(p)?"E-wallet / bank":/cash/i.test(p)?"Cash":p==="Unspecified"?"Other":"E-wallet / bank";
+function parseSales(text){const rows=csv(text);if(!rows.length)throw Error("File is empty.");
+const need=["CreatedAt","Total Price","Total Amount Payable","Total Cost Of Goods Sold","Payment Method","Status","Order Details"].filter(k=>!(k in rows[0]));if(need.length)throw Error("Missing column(s): "+need.join(", "));
+const rc=[],ln=[],vo=[];
+rows.forEach(r=>{const m=/(\d+)\/(\d+)\/(\d+),\s*(\d+):(\d+):(\d+)\s*(AM|PM)/i.exec(r.CreatedAt);if(!m)return;const h=+m[4]%12+(/pm/i.test(m[7])?12:0),day=`${m[3]}-${m[1].padStart(2,"0")}-${m[2].padStart(2,"0")}`;
+const pay=!r["Payment Method"]||r["Payment Method"]==="Order Ready"?"Unspecified":r["Payment Method"].replace(/foodpanda/i,"Foodpanda");
+const o={id:r["Receipt#"],day,mon:day.slice(0,7),dow:(new Date(+m[3],m[1]-1,+m[2]).getDay()+6)%7,h,gross:+r["Total Price"],net:+r["Total Amount Payable"],cogs:+r["Total Cost Of Goods Sold"],pay,grp:grp(pay)};o.disc=o.gross-o.net;
+if(r.Status!=="Paid"){vo.push(o);return}o.profit=o.net-o.cogs;let L=[];try{L=JSON.parse(r["Order Details"])}catch(e){}
+const tp=sum(L.map(l=>l.totalPrice))||1;L.forEach(l=>ln.push({rid:o.id,day,mon:o.mon,dow:o.dow,h,id:l.id,key:l.id+"|"+l.description,name:l.description,cat:l.category||"Other",v:l.variant||"No size",q:l.quantity,gross:l.totalPrice,net:l.amountPayable,cost:o.cogs*l.totalPrice/tp}));rc.push(o)});
+if(!rc.length)throw Error("No paid receipts found.");return{rc,ln,vo}}
+//#pure-end
+const $=i=>document.getElementById(i),DN=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const r2=x=>Math.round((x+Number.EPSILON)*100)/100,fmt=n=>(n<0?"-":"")+"₱"+Math.abs(r2(n)).toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2}),pc=x=>isFinite(x)?(x*100).toFixed(2)+"%":"-",hl=h=>(h%12||12)+(h<12?"am":"pm"),mean=a=>a.length?sum(a)/a.length:0;
+const E=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pal=()=>[1,2,3,4,5,6,7].map(i=>css("--c"+i)),SC=()=>[1,2,3].map(i=>css("--s"+i));
+const ST=[[0,[255,23,23]],[.2,[139,0,0]],[.4,[255,140,0]],[.6,[255,214,10]],[.8,[154,205,50]],[1,[0,230,64]]];
+const heat=t=>{t=Math.max(0,Math.min(1,t));let i=ST.findIndex(s=>s[0]>=t);if(i<1)i=1;const[a,A]=ST[i-1],[b,B]=ST[i],f=(t-a)/(b-a);return A.map((v,j)=>Math.round(v+(B[j]-v)*f))};
+let A=null,ch={},F={m:"all",hm:"o",tsm:"n",t:"db",sl:[{k:"",v:"All"},{k:"",v:"All"},{k:"",v:"All"}]};
+const ls=()=>A.ln.filter(l=>F.m=="all"||l.mon==F.m),rs=()=>A.rc.filter(o=>F.m=="all"||o.mon==F.m);
+const kp=a=>a.map(([l,v,s])=>`<div class="c"><b>${v}</b><span>${l}${s?" · "+s:""}</span></div>`).join("");
+const mk=(id,c)=>{if(ch[id])ch[id].destroy();ch[id]=new Chart($(id),c)},tk=()=>css("--mut"),gr=()=>css("--bd");
+const opt=(h,o={})=>{const V={ticks:{color:tk(),callback:v=>Math.abs(v)>=1000?r2(v/1000)+"k":v},grid:{color:gr()}},C={ticks:{color:tk(),maxRotation:0,autoSkip:true,maxTicksLimit:h?30:8},grid:{display:false}};
+return{responsive:true,maintainAspectRatio:false,indexAxis:h?"y":"x",interaction:{mode:"index",intersect:!!h},plugins:{legend:{labels:{color:tk(),boxWidth:12}}},scales:h?{x:V,y:C}:{x:C,y:V},...o}};
+const NL={plugins:{legend:{display:false}}};
+const dayRange=r=>{const d=r.map(o=>o.day).sort();if(!d.length)return[];const o=[],e=Date.parse(d[d.length-1]+"T00:00:00Z");for(let x=new Date(d[0]+"T00:00:00Z");+x<=e;x=new Date(+x+864e5))o.push(x.toISOString().slice(0,10));return o};
+const by=(a,k)=>{const m=new Map();a.forEach(x=>{const y=k(x);if(!m.has(y))m.set(y,[]);m.get(y).push(x)});return m};
+const items=l=>[...by(l,x=>x.key)].map(([key,a])=>{const q=sum(a.map(x=>x.q)),net=sum(a.map(x=>x.net)),cost=sum(a.map(x=>x.cost));return{key,id:a[0].id,name:a[0].name,cat:a[0].cat,q,net,profit:net-cost,a}});
+const ex=()=>{try{return JSON.parse(localStorage.getItem("cafe_ex"))||{}}catch(e){return{}}};
+const lb=(t,a)=>`<div class="c"><b>${t}</b>${a.map(([l,v,s,w])=>`<div class="row"><span>${l}<br><small>${s}</small></span><b>${v}</b><div class="bar" style="width:${Math.max(2,w*100)}%"></div></div>`).join("")}</div>`;
+const hrs=r=>{const h=r.map(o=>o.h),a=[];for(let i=Math.min(...h);i<=Math.max(...h);i++)a.push(i);return a};
+// ---------- load / nav
+function ingest(t,quiet){try{A=parseSales(t);$("err").textContent="";try{localStorage.setItem("cafe_csv",t)}catch(e){}init()}catch(e){if(!quiet)$("err").textContent=e.message}}
+$("f").onchange=async e=>{if(e.target.files[0])ingest(await e.target.files[0].text())};
+function init(){const ms=[...new Set(A.rc.map(o=>o.mon))].sort().reverse();$("mo").innerHTML=ms.map(m=>`<option value="${m}">${new Date(+m.slice(0,4),+m.slice(5)-1).toLocaleString("en",{month:"long",year:"numeric"})}</option>`).join("")+(ms.length>1?'<option value="all">All time</option>':"");
+F.m=ms[0];$("mo").value=F.m;$("mo").hidden=false;$("empty").hidden=true;$("app").hidden=false;$("tabs").hidden=false;M.t0=null;F.sl=[{k:"",v:"All"},{k:"",v:"All"},{k:"",v:"All"}];
+$("sub").textContent=`${A.rc.length} paid receipts, ${A.vo.length} voided`;const cats=[...new Set(A.ln.map(l=>l.cat))].sort();$("ic").innerHTML='<option>All</option>'+cats.map(c=>`<option>${E(c)}</option>`).join("");go(F.t)}
+$("mo").onchange=e=>{F.m=e.target.value;go(F.t)};
+const RN={db,nm,it:it_,ml};function go(t){F.t=t;document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("on",b.dataset.t==t));["db","nm","it","ml"].forEach(s=>$(s).hidden=s!=t);RN[t]()}
+$("tabs").onclick=e=>{if(e.target.dataset.t){go(e.target.dataset.t);scrollTo(0,0)}};
+const seg=(id,key,fn)=>$(id).addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;F[key]=Object.values(b.dataset)[0];[...$(id).querySelectorAll("button")].forEach(x=>x.classList.toggle("on",x==b));fn()});
+// ---------- 1 dashboard
+function db(){const r=rs(),l=ls(),days=dayRange(r),D=new Map(days.map(d=>[d,{n:0,p:0,o:0,dow:0}]));r.forEach(o=>{const x=D.get(o.day);x.n+=o.net;x.p+=o.profit;x.o++;x.dow=o.dow});
+const N=sum(r.map(o=>o.net)),P=sum(r.map(o=>o.profit)),mg=P/N,open=[...D].filter(([,x])=>x.o),H=new Map(hrs(r).map(h=>[h,{o:0,n:0}]));r.forEach(o=>{const x=H.get(o.h);x.o++;x.n+=o.net});
+const td=[...open].sort((a,b)=>b[1].n-a[1].n),th=[...H].sort((a,b)=>b[1].o-a[1].o),its=items(l).sort((a,b)=>b.q-a.q),dr=its.filter(x=>x.cat!="Add-Ons"),tq=sum(dr.map(x=>x.q)),med=dr.length?dr.map(x=>x.q).sort((a,b)=>a-b)[dr.length>>1]:0;
+const dw=DN.map((_,d)=>{const a=open.filter(([,x])=>x.dow==d);return{n:mean(a.map(x=>x[1].n)),c:a.length}});const ok=dw.filter(x=>x.c>1),bd=dw.indexOf(ok.slice().sort((a,b)=>b.n-a.n)[0]),wd=dw.indexOf(ok.slice().sort((a,b)=>a.n-b.n)[0]);
+$("kdb").innerHTML=kp([["Net sales",fmt(N)],["Gross profit",fmt(P),pc(mg)+" margin"],["Orders",r.length,"avg "+fmt(N/r.length)],["Items sold",sum(l.map(x=>x.q))],["Best day",fmt(td[0][1].n),DN[td[0][1].dow]+" "+td[0][0].slice(5)],["Peak hour",hl(th[0][0]),th[0][1].o+" orders"]]);
+const I=[],pk=th[0],wk=th[th.length-1],v=A.vo.filter(o=>F.m=="all"||o.mon==F.m),free=r.filter(o=>o.net==0),dl=sum(r.filter(o=>o.grp=="Delivery apps").map(o=>o.net)),ao=new Set(l.filter(x=>x.cat=="Add-Ons").map(x=>x.rid)).size;
+I.push({t:`Peak hour is ${hl(pk[0])}`,e:`${pk[1].o} orders (${pc(pk[1].o/r.length)} of all orders) worth ${fmt(pk[1].n)}.`,a:"Schedule your strongest crew here and pre-batch ice, milk and syrups 30 minutes earlier."});
+if(wk[0]!=pk[0])I.push({t:`Slowest hour is ${hl(wk[0])}`,e:`Only ${wk[1].o} orders in the whole period.`,a:"Run a happy-hour or coffee+pastry deal here, or use the time for prep and cleaning."});
+if(bd>=0&&wd>=0&&bd!=wd)I.push({t:`${DN[bd]} is strongest, ${DN[wd]} is weakest`,e:`Average ${fmt(dw[bd].n)} vs ${fmt(dw[wd].n)} per open day.`,a:`Put your promos or loyalty double-points on ${DN[wd]} to lift the weak day.`});
+if(dr[0]&&dr[0].q/tq>.12)I.push({t:`${E(dr[0].name)} carries the menu`,e:`${pc(dr[0].q/tq)} of drinks sold, ${pc(dr[0].profit/dr[0].net)} margin.`,a:"Never run out of it. Use it as the anchor for combos and keep its price and recipe cost under review."});
+const lo=dr.filter(x=>x.net>0&&x.q>=med&&x.profit/x.net<mg-.08).sort((a,b)=>b.q-a.q).slice(0,2),hi=dr.filter(x=>x.q>=3&&x.q<med&&x.profit/x.net>mg+.05).sort((a,b)=>b.profit/b.net-a.profit/a.net).slice(0,2);
+if(lo.length)I.push({t:"Popular but thin margin",e:lo.map(x=>`${E(x.name)} (${pc(x.profit/x.net)})`).join(", ")+` vs ${pc(mg)} average.`,a:"Raise the price by a small step, trim portion cost, or pair with a high-margin add-on."});
+if(hi.length)I.push({t:"Hidden gems: high margin, low volume",e:hi.map(x=>`${E(x.name)} (${pc(x.profit/x.net)}, ${x.q} sold)`).join(", ")+".",a:"Feature them on the menu board and have staff suggest them first."});
+if(ao/r.length<.15)I.push({t:"Add-ons are under-sold",e:`Only ${pc(ao/r.length)} of orders include an add-on.`,a:"Train staff to ask about oat milk, cold foam or an extra shot on every order. Add-ons are nearly pure margin."});
+if(v.length)I.push({t:`${v.length} voided receipts`,e:`${fmt(sum(v.map(o=>o.gross)))} gross, ${pc(sum(v.map(o=>o.gross))/(sum(v.map(o=>o.gross))+sum(r.map(o=>o.gross))))} of sales value.`,a:"Log a reason for each void. Repeated voids point to order-entry mistakes or equipment issues."});
+if(free.length)I.push({t:`${free.length} free (100% discounted) orders`,e:`Ingredient cost given away: ${fmt(sum(free.map(o=>o.cogs)))}.`,a:"Track who authorizes comps and set a monthly budget for them."});
+if(dl/N>.05)I.push({t:`Delivery apps are ${pc(dl/N)} of sales`,e:`${fmt(dl)} before platform commission.`,a:"Set the app fee % in the Numbers tab to see true profit, and consider a higher menu price on the apps."});
+$("ins").innerHTML=I.map(x=>`<div class="c ins"><b>${x.t}</b><span class="m">${x.e}</span><div class="a">Do: ${x.a}</div></div>`).join("");
+$("top").innerHTML=lb("Top days",td.slice(0,5).map(([d,x])=>[DN[x.dow]+" "+d.slice(5),fmt(x.n),x.o+" orders",x.n/td[0][1].n]))+lb("Top hours",th.slice(0,5).map(([h,x])=>[hl(h)+" to "+hl(h+1),x.o+" orders",fmt(x.n),x.o/pk[1].o]))+lb("Top items",its.slice(0,5).map(x=>[E(x.name),x.q+" sold",fmt(x.profit)+" est. profit",x.q/its[0].q]));
+const sa=days.map(d=>r2(D.get(d).n)),ma=sa.map((_,i)=>r2(mean(sa.slice(Math.max(0,i-6),i+1)))),c=pal();
+mk("c-day",{type:"bar",data:{labels:days.map(d=>d.slice(5)),datasets:[{type:"bar",label:"Net sales",data:sa,backgroundColor:c[1]+"aa"},{type:"line",label:"Gross profit",data:days.map(d=>r2(D.get(d).p)),borderColor:c[0],pointRadius:0,borderWidth:2},{type:"line",label:"7-day avg",data:ma,borderColor:c[3],pointRadius:0,borderWidth:2,borderDash:[5,4]}]},options:opt()});
+mk("c-dow",{type:"bar",data:{labels:DN,datasets:[{data:dw.map(x=>r2(x.n)),backgroundColor:c[0]}]},options:opt(0,NL)});
+const cg=[...by(l,x=>x.cat)].map(([k,a])=>[k,r2(sum(a.map(x=>x.net)))]).sort((a,b)=>b[1]-a[1]);
+mk("c-cat",{type:"doughnut",data:{labels:cg.map(x=>x[0]),datasets:[{data:cg.map(x=>x[1]),backgroundColor:c,borderColor:css("--card")}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"bottom",labels:{color:tk(),boxWidth:12}}}}})}
+// ---------- 2 numbers
+function nm(){const r=rs(),days=dayRange(r),span=days.length||1,X=ex(),f=span/30,c=pal(),D=new Map(days.map(d=>[d,{n:0,p:0,o:0,c:0,g:{}}]));
+r.forEach(o=>{const x=D.get(o.day);x.n+=o.net;x.p+=o.profit;x.o++;x.c+=o.cogs;x.g[o.grp]=(x.g[o.grp]||0)+o.net});
+const mt={n:["Net sales",x=>x.n],p:["Gross profit",x=>x.p],o:["Orders",x=>x.o],a:["Avg ticket",x=>x.o?x.n/x.o:0]}[F.tsm],ts=days.map(d=>r2(mt[1](D.get(d))));
+mk("c-ts",{type:"line",data:{labels:days.map(d=>d.slice(5)),datasets:[{label:mt[0],data:ts,borderColor:c[0],backgroundColor:c[0]+"33",fill:true,tension:.25,pointRadius:2},{label:"7-day avg",data:ts.map((_,i)=>r2(mean(ts.slice(Math.max(0,i-6),i+1)))),borderColor:c[1],pointRadius:0,borderWidth:2,borderDash:[5,4]}]},options:opt()});
+// heatmap
+const H=hrs(r),Mx={};r.forEach(o=>{const k=o.h+"|"+o.dow;Mx[k]=Mx[k]||{o:0,n:0};Mx[k].o++;Mx[k].n+=o.net});const mx=Math.max(...Object.values(Mx).map(x=>x[F.hm]),1);
+$("hm").innerHTML="<i></i>"+DN.map(d=>`<i>${d}</i>`).join("")+H.map(h=>`<i>${hl(h)}</i>`+DN.map((_,d)=>{const x=Mx[h+"|"+d],v=x?x[F.hm]:0,[R,G,B]=heat(v/mx),tc=.299*R+.587*G+.114*B>150?"#1b1b1b":"#fff";return`<div style="background:rgb(${R},${G},${B});color:${tc}">${v?(F.hm=="n"?(v>=1000?r2(v/1000)+"k":Math.round(v)):v):""}</div>`}).join("")).join("");
+mk("c-hr",{type:"bar",data:{labels:H.map(hl),datasets:[{data:H.map(h=>r2(sum(r.filter(o=>o.h==h).map(o=>o.net)))),backgroundColor:c[1]}]},options:opt(0,NL)});
+// P&L
+if(!$("x-rent").parentNode.parentNode.contains(document.activeElement))["rent","lab","uti","oth","com"].forEach(k=>{$("x-"+k).value=X[k]||""});
+const G=sum(r.map(o=>o.gross)),Nn=sum(r.map(o=>o.net)),C=sum(r.map(o=>o.cogs)),GP=Nn-C,dl=sum(r.filter(o=>o.grp=="Delivery apps").map(o=>o.net)),K=dl*(X.com||0)/100,op=[["Rent",X.rent],["Labor",X.lab],["Utilities",X.uti],["Other",X.oth]].map(([n,v])=>[n,(v||0)*f]),OX=sum(op.map(x=>x[1])),NP=GP-K-OX;
+const row=(n,v,k)=>`<tr class="${k||""}"><td>${n}<td class="${v<0?"neg":""}">${fmt(v)}</tr>`;
+$("tpl").innerHTML="<tr><th>Profit and loss<th>"+(F.m=="all"?"All time":F.m)+"</tr>"+row("Gross sales",G)+row("Discounts",-(G-Nn),"sub")+row("Net sales",Nn,"t")+row("Cost of goods",-C,"sub")+row("Gross profit ("+pc(GP/Nn)+")",GP,"t")+row("Delivery app fees",-K,"sub")+op.map(x=>row(x[0],-x[1],"sub")).join("")+row("Net profit ("+pc(NP/Nn)+")",NP,"t");
+mk("c-wf",{type:"bar",data:{labels:["Gross","Discounts","COGS","App fees","Costs","Net"],datasets:[{data:[[0,G],[Nn,G],[GP,Nn],[GP-K,GP],[NP,GP-K],[Math.min(0,NP),Math.max(0,NP)]].map(a=>a.map(r2)),backgroundColor:[c[5],c[3],c[3],c[3],c[3],NP<0?c[3]:c[2]]}]},options:opt(0,NL)});
+// cash flow
+const gs=["Cash","E-wallet / bank","Delivery apps","Other"];let run=0;const cum=days.map(d=>{const x=D.get(d);run+=x.n-x.c-(x.g["Delivery apps"]||0)*(X.com||0)/100-OX/span;return r2(run)});
+const co=opt();co.scales.x.stacked=true;mk("c-cf",{type:"bar",data:{labels:days.map(d=>d.slice(5)),datasets:gs.map((g,i)=>({type:"bar",label:g,stack:"s",data:days.map(d=>r2(D.get(d).g[g]||0)),backgroundColor:[c[0],c[2],c[1],c[4]][i]})).concat([{type:"line",label:"Cumulative cash",data:cum,borderColor:c[3],pointRadius:0,borderWidth:2}])},options:co});
+$("tpay").innerHTML="<tr><th>Payment method<th>Orders<th>Sales<th>Share</tr>"+[...by(r,o=>o.pay)].map(([k,a])=>[k,a.length,sum(a.map(o=>o.net))]).sort((a,b)=>b[2]-a[2]).map(x=>`<tr><td>${E(x[0])}<td>${x[1]}<td>${fmt(x[2])}<td>${pc(x[2]/Nn)}</tr>`).join("");
+const it=items(ls());$("tcat").innerHTML="<tr><th>Category<th>Qty<th>Sales<th>Profit<th>Margin<th>Top item</tr>"+[...by(it,x=>x.cat)].map(([k,a])=>{const n=sum(a.map(x=>x.net)),p=sum(a.map(x=>x.profit));return[k,sum(a.map(x=>x.q)),n,p,a.sort((x,y)=>y.q-x.q)[0].name]}).sort((a,b)=>b[2]-a[2]).map(x=>`<tr><td>${E(x[0])}<td>${x[1]}<td>${fmt(x[2])}<td>${fmt(x[3])}<td>${pc(x[3]/x[2])}<td>${E(x[4])}</tr>`).join("");
+$("tled").innerHTML="<tr><th>Date<th>Orders<th>Sales<th>COGS<th>Profit<th>Margin<th>Avg ticket</tr>"+days.filter(d=>D.get(d).o).reverse().map(d=>{const x=D.get(d);return`<tr><td>${d.slice(5)} ${DN[(new Date(d+"T00:00:00Z").getUTCDay()+6)%7]}<td>${x.o}<td>${fmt(x.n)}<td>${fmt(x.c)}<td>${fmt(x.p)}<td>${pc(x.p/x.n)}<td>${fmt(x.n/x.o)}</tr>`}).join("")}
+seg("tsb","tsm",nm);seg("hmb","hm",nm);
+$("x-rent").parentNode.parentNode.oninput=()=>{const X={};["rent","lab","uti","oth","com"].forEach(k=>X[k]=+$("x-"+k).value||0);try{localStorage.setItem("cafe_ex",JSON.stringify(X))}catch(e){}clearTimeout(nm.t);nm.t=setTimeout(nm,500)};
+// ---------- 3 items
+function it_(){const l=ls(),all=items(l),S=SC(),NT=sum(l.map(x=>x.net)),dr=all.slice().sort((a,b)=>b.q-a.q);
+F.sl.forEach(s=>{if(s.k&&!all.find(x=>x.key==s.k)){s.k="";s.v="All"}});if(!F.sl.some(s=>s.k)&&dr[0])F.sl[0].k=dr[0].key;
+const bc=[...by(all.slice().sort((a,b)=>a.name.localeCompare(b.name)),x=>x.cat)],op=sel=>'<option value="">None</option>'+bc.map(([c,a])=>`<optgroup label="${E(c)}">${a.map(x=>`<option value="${E(x.key)}"${x.key==sel?" selected":""}>${E(x.name)} (#${x.id})</option>`).join("")}</optgroup>`).join(""),
+vo=s=>'<option value="All">All sizes</option>'+[...new Set(l.filter(y=>y.key==s.k).map(y=>y.v))].sort().map(v=>`<option value="${E(v)}"${v==s.v?" selected":""}>${E(v)}</option>`).join("");
+$("slots").innerHTML=F.sl.map((s,i)=>`<div class="c" style="border-top:4px solid ${S[i]}"><b style="color:${S[i]}">Slot ${"ABC"[i]}</b><div class="ex" style="grid-template-columns:1fr"><select data-s="${i}" data-w="k">${op(s.k)}</select><select data-s="${i}" data-w="v"${s.k?"":" disabled"}>${vo(s)}</select></div></div>`).join("");
+const En=F.sl.map((s,i)=>s.k?{c:S[i],s,a:l.filter(y=>y.key==s.k&&(s.v=="All"||y.v==s.v)),name:all.find(x=>x.key==s.k).name+(s.v!="All"?" · "+s.v:"")}:null).filter(Boolean),days=dayRange(rs()),H=hrs(rs());
+$("ikp").innerHTML=En.map(e=>{const q=sum(e.a.map(x=>x.q)),n=sum(e.a.map(x=>x.net)),p=n-sum(e.a.map(x=>x.cost)),rk=dr.findIndex(x=>x.key==e.s.k)+1;e.q=q;
+return`<div class="c" style="border-top:4px solid ${e.c}"><b style="color:${e.c}">${E(e.name)}</b><div class="k2"><div><b>${q}</b><span>Sold</span></div><div><b>${fmt(n)}</b><span>Sales</span></div><div><b>${fmt(p)}</b><span>Est. profit (${pc(p/n)})</span></div><div><b>${fmt(n/q)}</b><span>Avg price</span></div><div><b>${pc(n/NT)}</b><span>Share of sales</span></div><div><b>${e.s.v=="All"?"#"+rk+" of "+dr.length:"-"}</b><span>Qty rank</span></div></div></div>`}).join("")||"<p>Pick an item above.</p>";
+const line=(id,lab,type,fn)=>mk(id,{type,data:{labels:lab[0],datasets:En.map(e=>({label:e.name,data:lab[1].map(k=>r2(fn(e,k))),borderColor:e.c,backgroundColor:e.c+(type=="bar"?"":"22"),pointRadius:type=="line"?1.5:0,tension:.2}))},options:opt()});
+const Q=(e,f)=>sum(e.a.filter(f).map(x=>x.q));
+line("c-i1",[days.map(d=>d.slice(5)),days],"line",(e,d)=>Q(e,x=>x.day==d));line("c-i2",[H.map(hl),H],"bar",(e,h)=>Q(e,x=>x.h==h));line("c-i3",[DN,[0,1,2,3,4,5,6]],"bar",(e,d)=>Q(e,x=>x.dow==d));
+const vs=[...new Set(En.flatMap(e=>e.a.map(y=>y.v)))].sort();line("c-i4",[vs,vs],"bar",(e,v)=>sum(e.a.filter(x=>x.v==v).map(x=>x.net)));
+const rc=by(l,y=>y.rid),fr={};rc.forEach(a=>new Set(a.map(y=>y.name)).forEach(n=>fr[n]=(fr[n]||0)+1));
+$("isz").innerHTML=En.map(e=>{const w=[...rc.values()].filter(a=>a.some(y=>y.key==e.s.k)),cn={};w.forEach(a=>new Set(a.map(y=>y.name)).forEach(n=>{if(n!=all.find(x=>x.key==e.s.k).name)cn[n]=(cn[n]||0)+1}));
+const pr=Object.entries(cn).sort((a,b)=>b[1]-a[1]).slice(0,5);
+return`<div class="c w" style="border-top:4px solid ${e.c}"><b style="color:${e.c}">${E(e.name)}: by size</b><table><tr><th>Size<th>Qty<th>Sales<th>Profit<th>Avg</tr>${[...by(e.a,y=>y.v)].map(([v,a])=>{const n=sum(a.map(x=>x.net)),q=sum(a.map(x=>x.q));return`<tr><td>${E(v)}<td>${q}<td>${fmt(n)}<td>${fmt(n-sum(a.map(x=>x.cost)))}<td>${fmt(n/q)}</tr>`}).join("")}</table><p style="margin-top:8px">Often bought with</p>${pr.map(([n,c])=>`<span class="chip">${E(n)} x${c} (lift ${r2(c/w.length/(fr[n]/rc.size))})</span>`).join("")||'<span class="m">Usually ordered alone</span>'}</div>`}).join("");
+const q=$("q").value.toLowerCase(),cat=$("ic").value,k=$("is").value,mq=Math.max(...all.map(x=>x.q),1),a=all.filter(x=>(cat=="All"||x.cat==cat)&&x.name.toLowerCase().includes(q)).sort((x,y)=>k=="name"?x.name.localeCompare(y.name):y[k]-x[k]);
+$("list").innerHTML=a.map(x=>`<div class="row pt${F.sl.some(s=>s.k==x.key)?" on":""}" data-id="${E(x.key)}"><span><b>${E(x.name)}</b> <small>#${x.id} · ${E(x.cat)}</small></span><span><b>${x.q}</b> <small>${fmt(x.net)}</small></span><div class="bar" style="width:${x.q/mq*100}%"></div></div>`).join("")||"<p>No match.</p>"}
+$("slots").onchange=e=>{const s=F.sl[+e.target.dataset.s];s[e.target.dataset.w]=e.target.value;if(e.target.dataset.w=="k")s.v="All";it_()};
+$("list").onclick=e=>{const r=e.target.closest(".row");if(r){F.sl[0]={k:r.dataset.id,v:"All"};it_();scrollTo({top:0,behavior:"smooth"})}};["q","ic","is"].forEach(i=>$(i).oninput=it_);
+// ---------- 4 model
+const FT={trend:["trend",r=>r.t,"Trend (day number)"],wk:["weekend",r=>r.dow>4?1:0,"Weekend (Sat/Sun)"],pay:["payday",r=>(r.dom==15||r.dom==30)?1:0,"Payday (15th, 30th)"],lag:["lag7",r=>r.lag,"Same day last week"]};
+const M={tg:"n",f:{trend:1,wk:1,pay:0,lag:0},lam:1,test:20,t0:null,w:{},b:0,ks:[]},TL={n:"net sales",o:"orders",p:"gross profit"};
+function solve(Z){const n=Z.length;for(let i=0;i<n;i++){let q=i;for(let r=i+1;r<n;r++)if(Math.abs(Z[r][i])>Math.abs(Z[q][i]))q=r;[Z[i],Z[q]]=[Z[q],Z[i]];for(let r=0;r<n;r++)if(r!=i){const f=Z[r][i]/Z[i][i];for(let k=i;k<=n;k++)Z[r][k]-=f*Z[i][k]}}return Z.map((r,i)=>r[n]/r[i])}
+function mlRows(){const D=new Map();A.rc.forEach(o=>{let x=D.get(o.day);if(!x)D.set(o.day,x={day:o.day,dow:o.dow,dom:+o.day.slice(8),n:0,o:0,p:0});x.n+=o.net;x.o++;x.p+=o.profit});
+const rows=[...D.values()].sort((a,b)=>a.day<b.day?-1:1),t0=Date.parse(rows[0].day+"T00:00:00Z"),T=M.tg;M.D=D;
+rows.forEach(r=>{const d=Date.parse(r.day+"T00:00:00Z");r.t=Math.round((d-t0)/864e5);r.y=r[T];const p=D.get(new Date(d-6048e5).toISOString().slice(0,10));r.lag=p?p[T]:undefined});M.t00=t0;return rows}
+function train(){M.ks=Object.keys(FT).filter(k=>M.f[k]);const rows=mlRows().filter(r=>!M.f.lag||r.lag!==undefined);M.rows=rows;const nt=Math.max(0,Math.min(rows.length-4,Math.round(rows.length*M.test/100))),tr=rows.slice(0,rows.length-nt),ks=M.ks;M.nt=nt;
+const yb=mean(tr.map(r=>r.y)),mu=ks.map(k=>mean(tr.map(FT[k][1]))),sg=ks.map((k,i)=>Math.sqrt(mean(tr.map(r=>(FT[k][1](r)-mu[i])**2)))||1),X=tr.map(r=>ks.map((k,i)=>(FT[k][1](r)-mu[i])/sg[i])),y=tr.map(r=>r.y-yb),lam=Math.max(M.lam,1e-6);
+const ws=ks.length?solve(ks.map((_,i)=>[...ks.map((_,j)=>sum(X.map(x=>x[i]*x[j]))+(i==j?lam:0)),sum(X.map((x,n)=>x[i]*y[n]))])):[];M.w={};let b=yb;ks.forEach((k,i)=>{M.w[k]=ws[i]/sg[i];b-=M.w[k]*mu[i]});M.b=b;M.t0={w:{...M.w},b};M.ym=yb;ctl();mlView()}
+const pred=r=>M.b+M.ks.reduce((s,k)=>s+M.w[k]*FT[k][1](r),0);
+function ctl(){const f=(k,l,v0,v)=>{const sp=Math.abs(v0)*2+(k=="b"?10:1),st=sp/1000;return`<div><label>${l}</label><input type="range" data-p="${k}" min="${-sp+v0}" max="${sp+v0}" step="${st}" value="${v}"><input type="number" data-p="${k}" step="any" value="${v}"></div>`};
+$("mlp").innerHTML=f("b","Intercept",M.t0.b,M.b)+M.ks.map(k=>f(k,FT[k][2]+" weight",M.t0.w[k],M.w[k])).join("")}
+function mlView(){const rows=M.rows,ks=M.ks,nt=M.nt,tr=rows.slice(0,rows.length-nt),te=rows.slice(rows.length-nt),mn=M.tg=="o"?"":"₱",c=pal();
+const fm=v=>mn?fmt(v):r2(v).toFixed(2),met=a=>{if(!a.length)return null;const e=a.map(r=>r.y-pred(r)),m=mean(a.map(r=>r.y));return{mae:mean(e.map(Math.abs)),rmse:Math.sqrt(mean(e.map(x=>x*x))),r2:1-sum(e.map(x=>x*x))/(sum(a.map(r=>(r.y-m)**2))||1)}},a=met(tr),b=met(te);
+$("fn").textContent=`ŷ (${TL[M.tg]}) = ${M.b.toFixed(4)}`+ks.map(k=>` ${M.w[k]<0?"-":"+"} ${Math.abs(M.w[k]).toFixed(4)}·${FT[k][0]}`).join("")+`\n\n${ks.map(k=>FT[k][0]+" = "+FT[k][2]).join("\n")}\nTrained with ridge lambda = ${M.lam} on ${tr.length} days${nt?`, tested on the last ${nt}`:""}.`;
+$("mk").innerHTML=kp([["Train MAE",fm(a.mae)],["Train RMSE",fm(a.rmse)],["Train R²",a.r2.toFixed(4)],["Test MAE",b?fm(b.mae):"-"],["Test RMSE",b?fm(b.rmse):"-"],["Test R²",b?b.r2.toFixed(4):"-"]]);
+const p=rows.map(pred);mk("c-ml",{type:"line",data:{labels:rows.map(r=>r.day.slice(5)),datasets:[{label:"Actual",data:rows.map(r=>r2(r.y)),borderColor:c[0],pointRadius:2,borderWidth:2},{label:"Predicted (train)",data:p.map((v,i)=>i<tr.length?r2(v):null),borderColor:c[1],pointRadius:2,borderDash:[4,3]},{label:"Predicted (test)",data:p.map((v,i)=>i>=tr.length?r2(v):null),borderColor:c[3],pointRadius:3,borderWidth:2}]},options:opt()});
+const last=rows[rows.length-1],out=[];for(let i=1;i<=7;i++){const d=new Date(Date.parse(last.day+"T00:00:00Z")+i*864e5),ds=d.toISOString().slice(0,10),pd=M.D.get(new Date(+d-6048e5).toISOString().slice(0,10)),r={t:Math.round((+d-M.t00)/864e5),dow:(d.getUTCDay()+6)%7,dom:d.getUTCDate(),lag:pd?pd[M.tg]:M.ym};out.push(`<tr><td>${DN[r.dow]} ${ds.slice(5)}<td>${fm(pred(r))}</tr>`)}
+$("mfc").innerHTML=`<tr><th>Day<th>Predicted ${TL[M.tg]}</tr>`+out.join("")}
+$("mf").innerHTML=Object.keys(FT).map(k=>`<label class="chip"><input type="checkbox" data-f="${k}" ${M.f[k]?"checked":""} style="min-height:auto"> ${FT[k][2]}</label>`).join("");
+$("mf").onchange=e=>{M.f[e.target.dataset.f]=e.target.checked;train()};$("mt").onchange=e=>{M.tg=e.target.value;train()};$("ml-l").onchange=e=>{M.lam=Math.max(0,+e.target.value||0);train()};$("ms").onchange=e=>{M.test=+e.target.value;train()};
+$("tr").onclick=train;$("rst").onclick=()=>{if(M.t0){M.w={...M.t0.w};M.b=M.t0.b;ctl();mlView()}};
+$("mlp").oninput=e=>{const k=e.target.dataset.p;if(!k)return;const v=+e.target.value;if(k=="b")M.b=v;else M.w[k]=v;$("mlp").querySelectorAll(`[data-p="${k}"]`).forEach(x=>{if(x!=e.target)x.value=v});mlView()};
+function ml(){if(!M.t0)train();else{ctl();mlView()}}
+matchMedia("(prefers-color-scheme:dark)").onchange=()=>A&&RN[F.t]();
+Chart.defaults.font.family="'DM Sans',system-ui,sans-serif";
+try{const s=localStorage.getItem("cafe_csv");if(s)ingest(s,true)}catch(e){}
+</script></body></html>
